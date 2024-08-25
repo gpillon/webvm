@@ -14,5 +14,9 @@ RUN chmod -R +x  /home/user/examples/lua
 WORKDIR /home/user/
 # We set env, as this gets extracted by Webvm. This is optional.
 ENV HOME="/home/user" TERM="xterm" USER="user" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
-RUN echo 'root:password' | chpasswd
+RUN echo 'root:password' | chpasswd && \
+    curl -O https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/4.16.9/openshift-client-linux-4.16.9.tar.gz && \
+    tar xvf openshift-client-linux-4.16.9.tar.gz && \
+    chmod +x oc && \
+    mv oc /bin/oc
 CMD [ "/bin/bash" ]
